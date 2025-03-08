@@ -6,6 +6,7 @@ function sxangxiFablon(n) {
     fabloTeksto = fabloj[nunaFabloIndekso];
     vortoj = fabloTeksto.split(" ");
     renderiFablon();
+    indekso = -1
 }
 
 const fabloElemento = document.getElementById("fablo");
@@ -30,42 +31,68 @@ function emfazigiVorton(direkto) {
     renderiFablon();
 }
 
+let klarigoTxt = ""
 function sercxi() {
+    klarigoTxt = ""
     // console.log("Indekso minuskla", vortoj[indekso].toLowerCase());
     // console.log("Indekso", vortoj[indekso]);
     // console.log(typeof vortObjekto[vortoj[indekso].toLowerCase()]);
     // console.log("Objekto+Indekso minuskla", vortObjekto[vortoj[indekso].toLowerCase()]);
     
     let vorto = vortoj[indekso].toLowerCase();
+    console.log(vorto);
     if (vorto.endsWith(".")) {
+        vorto = vorto.slice(0, -1);
+    }
+    if (vorto.endsWith("?")) {
         vorto = vorto.slice(0, -1);
     }
     if (vorto.endsWith(",")) {
         vorto = vorto.slice(0, -1);
     }
     if (vorto.endsWith("n")) {
-        vorto = vorto.slice(0, -1);
+        if (vorto === "jen") {
+            //nenio
+        } else {
+            vorto = vorto.slice(0, -1);
+            klarigoTxt = "n"
+        }
+    }
+    if (vorto.endsWith("o") && vorto.length > 3) {
+        klarigoTxt = "o"
+    }
+    if (vorto.endsWith("a") && vorto.length > 3) {
+        klarigoTxt = "a"
+    }
+    if (vorto.endsWith("oj")) {
+        vorto = vorto.slice(0, -2) + "o";
+        klarigoTxt = "o"
+    }
+    if (vorto.endsWith("aj")) {
+        if (vorto.length > 3) {
+            vorto = vorto.slice(0, -2) + "a";
+            klarigoTxt = "a"
+        }
     }
     if (vorto.endsWith("as")) {
         vorto = vorto.slice(0, -2) + "i";
+        klarigoTxt = "as"
     }
     if (vorto.endsWith("is")) {
         vorto = vorto.slice(0, -2) + "i";
     }
-    if (vorto.endsWith("oj")) {
-        vorto = vorto.slice(0, -2) + "o";
-    }
-    if (vorto.endsWith("aj")) {
-        vorto = vorto.slice(0, -2) + "a";
-    }
+    console.log(klarigoTxt);
     console.log(vorto);
 
     const rezultoDiv = document.getElementById("rezulto");
+    const klarigoDiv = document.getElementById("klarigo");
     if (vortObjekto[vorto.toLowerCase()]) {
         rezultoDiv.textContent = vortObjekto[vorto.toLowerCase()];
+        klarigoDiv.textContent = vortObjekto[klarigoTxt]
         console.log("1");
+        console.log("1",vortObjekto[klarigoTxt]);
     } else {
-        rezultoDiv.textContent = "Ne trovita >" + vortoj[indekso].toLowerCase();
+        rezultoDiv.textContent = "Ne trovita > " + vortoj[indekso].toLowerCase();
         console.log("2");
     }
 }
